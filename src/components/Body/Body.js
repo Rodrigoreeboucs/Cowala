@@ -5,17 +5,14 @@ import {mask} from 'remask'
 const Body = () => {
   
     /* FETCH */  
-    function fetchIp() {
-     fetch("https://ip-fast.com/api/ip/")
-    .then(response => {
-      return response.text();
-    }).then(text => {
-      console.log(text)
-    }).catch(fetchIp(error) {
-      console.log(error)
-    });
+    const handleIp = async(e)=> {
+      e.preventDefault();
+      const res = await fetch("https://ip-fast.com/api/ip/?format=json")
+      const ip = await res.json()
+      setIp(ip.ip)
     
   }
+ 
           
    /* MÁSCARAS */
    const [tele,setTele]= useState("")
@@ -66,6 +63,7 @@ const Body = () => {
   arrayPessoas.push(dados);
   var pessoaJson = JSON.stringify(arrayPessoas);
   localStorage.removeItem("dados", pessoaJson);
+
   }
 
     return (
@@ -92,7 +90,7 @@ const Body = () => {
           </div>
 
           <div>
-          <button id='button-ip'  >Encontrar IP</button>
+          <button id='button-ip'  onClick={handleIp} >Encontrar IP</button>
           </div>
 
           <div className='btn-div'>
